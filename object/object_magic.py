@@ -7,6 +7,8 @@
 
 #__del__ deletion of reference
 
+#__str__ print(p), instead of printing out the address, it would print out the info you specified.
+
 import sys
 
 
@@ -18,9 +20,12 @@ class Person:
     def __new__(cls, *args, **kwargs):   #*args <class tuple>  *kargs< dict>  making space for __init__
         print("NEW")
         position = object.__new__(cls)#, *args, **kwargs)
-        print("posiiton: ",position)
+        print("position: ",position)
         return position
-    
+
+    def __str__(self):
+        return self.name
+
     def __call__(self, name):
         print("CALL")
         self.name = name
@@ -28,15 +33,16 @@ class Person:
     def __del__(self):
         print("DEL")
 
+
 # p = Person("Peter")
 # print(p.name)
 # p("Lily")  # run __call  when you run object as a function
 # print(p.name)
 
-p1 = Person("Ada")
-p2 = p1              #all p1 p2 p3 pointing to the same address
-p3 = p1              # when a address has no reference/the program has reached its end, del would be excuted automatically by default               
+p = Person("Ada")
+#p2 = p1              #all p1 p2 p3 pointing to the same address
+#p3 = p1              # when a address has no reference/the program has reached its end, del would be excuted automatically by default               
 #print(sys.getrefcount(p1))
 #del p3
 #del p2
-#print(p2)
+print(p)
